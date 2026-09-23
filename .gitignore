@@ -1,5 +1,13 @@
+# Environnement virtuel
 .venv/
-data/raw/
+
+# Caches Python et Jupyter
 __pycache__/
-.ipynb_checkpoints/
 *.pyc
+.ipynb_checkpoints/
+
+# Données volumineuses (les dossiers sont conservés via .gitkeep)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
