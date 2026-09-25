@@ -11,3 +11,6 @@ data/raw/*
 !data/raw/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
+
+# Configuration IDE (PyCharm)
+.idea/

@@ -1,6 +1,7 @@
 import argparse
 import os
 import random
+import unicodedata
 from datetime import datetime, timedelta
 
 import numpy as np
@@ -23,6 +24,13 @@ CATEGORIES = {
     "Accessoire": ["Sacoche", "Cable", "Adaptateur"],
 }
 DATE_FORMATS = ["%Y-%m-%d", "%d/%m/%Y", "%d-%m-%Y", "%Y/%m/%d %H:%M", "%d %b %Y"]
+DELIVERY_CITIES = CITIES + ["Orléans", "Nîmes", "Besançon", "Saint-Étienne"]
+DISCOUNTS = [0, 0, 0, 5, 10, 15, 20]
+
+
+def strip_accents(value):
+    """Supprime les accents, comme une saisie faite sur un clavier sans accents."""
+    return unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode("ascii")
 
 
 def messy_case(value, rng):
@@ -114,7 +122,22 @@ def generate_customers(rng, n_customers=3000):
             "date_inscription": reg_date.strftime("%Y-%m-%d"),
             "segment": rng.choice(["Particulier", "Professionnel", "VIP"], p=[0.75, 0.20, 0.05]),
         })
-    return pd.DataFrame(rows)
+    customers = pd.DataFrame(rows)
+
+    # Générateur dédié aux anomalies : le flux principal (rng) reste inchangé,
+    # les autres fichiers sont donc identiques d'une version à l'autre.
+    anomaly_rng = np.random.default_rng(SEED + 1)
+
+    # Âge, manquant plus souvent chez les professionnels (absence de type MAR).
+    customers["age"] = anomaly_rng.integers(18, 80, size=len(customers)).astype(float)
+    missing_rate = np.where(customers["segment"] == "Professionnel", 0.25, 0.04)
+    customers.loc[anomaly_rng.random(len(customers)) < missing_rate, "age"] = np.nan
+
+    # Doublons métier : même personne ressaisie sous un nouvel identifiant.
+    n_business_dup = int(len(customers) * 0.02)
+    dup = customers.sample(n=n_business_dup, random_state=SEED).copy()
+    dup["id_client"] = [f"C{n:04d}" for n in range(n_customers + 1, n_customers + 1 + n_business_dup)]
+    return pd.concat([customers, dup], ignore_index=True)
 
 
 def generate_sensors(rng):
@@ -133,6 +156,39 @@ def generate_sensors(rng):
                 "temperature": temp,
             })
     return pd.DataFrame(rows)
+
+
+def degrade_sales(df, rng):
+    """Ajoute les anomalies étudiées en séance 3 (manquants, aberrants, faux doublons)."""
+    df = df.copy()
+    n = len(df)
+
+    # Remise : environ 11 % de valeurs non saisies
+    df["remise_pct"] = rng.choice(DISCOUNTS, size=n).astype(float)
+    df.loc[rng.random(n) < 0.11, "remise_pct"] = np.nan
+
+    # Ville de livraison : casse, espaces et accents instables
+    cities = []
+    for city in rng.choice(DELIVERY_CITIES, size=n):
+        city = str(city)
+        if rng.random() < 0.3:
+            city = strip_accents(city)
+        cities.append(messy_case(city, rng))
+    df["ville_livraison"] = cities
+
+    # Dates absentes (environ 2 %)
+    df.loc[rng.random(n) < 0.02, "date_commande"] = np.nan
+
+    # Quantités impossibles (négatives) et improbables (commandes de 800 à 1 000)
+    negative_index = rng.choice(df.index, size=int(n * 0.004), replace=False)
+    df.loc[negative_index, "quantite"] = -df.loc[negative_index, "quantite"]
+    extreme_index = rng.choice(df.index.difference(negative_index), size=int(n * 0.002), replace=False)
+    df.loc[extreme_index, "quantite"] = rng.integers(800, 1001, size=len(extreme_index))
+
+    # Même id_commande, lignes différentes (ressaisie avec un statut corrigé)
+    re_entered = df[df["statut"] != "annule"].sample(n=int(n * 0.005), random_state=SEED + 3).copy()
+    re_entered["statut"] = "annule"
+    return pd.concat([df, re_entered], ignore_index=True)
 
 
 def generate_sales(products, stores, customers, rng, n_sales=17600):
@@ -184,6 +240,7 @@ def generate_sales(products, stores, customers, rng, n_sales=17600):
         })
 
     df = pd.DataFrame(rows)
+    df = degrade_sales(df, np.random.default_rng(SEED + 2))
 
     n_duplicates = int(len(df) * 0.015)
     dup_rows = df.sample(n=n_duplicates, random_state=SEED)
