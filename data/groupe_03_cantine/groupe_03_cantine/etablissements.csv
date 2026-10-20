@@ -1,0 +1,12 @@
+id_etablissement,nom_site,ville,region,capacite
+ETB01,Site Paris,Paris,Ile-de-France,52
+ETB02,Site Lyon,Lyon,Auvergne-Rhone-Alpes,71
+ETB03,Site Marseille,Marseille,PACA,294
+ETB04,Site Lille,Lille,Hauts-de-France,457
+ETB05,Site Bordeaux,Bordeaux,Nouvelle-Aquitaine,568
+ETB06,Site Nantes,Nantes,Pays de la Loire,637
+ETB07,Site Toulouse,Toulouse,Occitanie,387
+ETB08,Site Strasbourg,Strasbourg,Grand Est,854
+ETB09,Site Rennes,Rennes,Bretagne,440
+ETB10,Site Montpellier,Montpellier,Occitanie,609
+ETB99,Site technique,Orleans,Centre-Val de Loire,2500

@@ -44,14 +44,15 @@ docker compose exec pyspark spark-submit src/spark_pipeline.py
 
 Il produit un jeu Parquet partitionné par année sous `data/processed/ventes_projet_spark/`.
 
-## Projet du groupe 1 — Bibliothèque
+## Projet du groupe 3 - Cantine
 
-Les sources attribuées se trouvent dans `data/groupe_01_bibliotheque/groupe_01_bibliotheque/`.
-Le pipeline de projet nettoie les événements et les enrichit avec les référentiels adhérents,
-ouvrages et sites :
+Les sources attribuees sont dans `data/groupe_03_cantine/groupe_03_cantine/`. Ouvrir et executer `notebooks/09_projet_canevas.ipynb` depuis Jupyter. Le notebook genere le jeu Parquet et les tableaux CSV dans `reports/artifacts/`, en plus des copies de travail dans `data/processed/`. Le graphique est dans `reports/figures/cantine_activite.png`.
+
+Le pipeline PySpark est `src/canteen_pipeline.py`. Apres demarrage de Docker Desktop :
 
 ```powershell
-docker compose exec pyspark spark-submit src/library_pipeline.py
+docker compose up -d
+docker compose exec pyspark spark-submit src/canteen_pipeline.py
 ```
 
-Il écrit `data/processed/bibliotheque_projet_spark/`, en Parquet partitionné par année.
+Avant depot, completer les noms des membres et la date de soutenance dans le notebook et `soutenance.md`.

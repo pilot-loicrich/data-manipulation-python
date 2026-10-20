@@ -1,41 +1,22 @@
-# Support de soutenance — Groupe 1 : bibliothèque
+# Support de soutenance - Groupe 3 : cantine
 
-## Plan (15 minutes)
+**A completer avant depot : noms des membres et date de passage.** Duree visee : 15 minutes de presentation puis 10 minutes de questions.
 
-1. **Contexte et question (2 min)** — Décrire la table d’événements d’emprunt et les
-   référentiels. Question : quels sites et familles concentrent l’activité, les retards et
-   les pertes, et quelle est leur évolution mensuelle ?
-2. **Diagnostic (3 min)** — Présenter les 20 563 événements, les 412 dates manquantes,
-   les 1 841 durées absentes, les 180 occurrences supplémentaires d’identifiants réutilisés,
-   les variantes de statut et les taux de clés orphelines recalculés par le notebook.
-3. **Traitements (5 min)** — Montrer le parsing explicite des dates, la normalisation des
-   textes, la distinction entre doublon exact et id réutilisé, le maintien des durées
-   manquantes et les jointures gauches contrôlées.
-4. **PySpark (2 min)** — Montrer `src/library_pipeline.py`, le broadcast des référentiels
-   et les mesures observées dans le notebook. Préciser que le RSS Python ne mesure pas la
-   mémoire complète de la JVM Spark.
-5. **Résultats et limites (3 min)** — Présenter emprunts, retards et pertes par région et
-   famille, l’évolution mensuelle et les limites du jeu synthétique.
+## Deroule
+
+1. **Contexte et question (2 min).** Comparer les repas consommes, annules et non recuperes par etablissement, famille de menu et mois.
+2. **Diagnostic (3 min).** Les 18 683 lignes brutes incluent 220 doublons exacts, 377 dates manquantes ou invalides et 2 050 grammages manquants. Aucun identifiant de convive, menu ou etablissement n'est orphelin.
+3. **Traitements (5 min).** Normalisation des statuts et regimes, conversion du cout (virgules et suffixes EUR), retrait des doublons exacts et des dates non exploitables pour l'analyse temporelle. Les grammages manquants et portions atypiques sont conserves et signales.
+4. **PySpark (2 min).** Presenter `src/canteen_pipeline.py`, les jointures gauches et le broadcast des referentiels. Le pipeline Spark est fourni, mais aucune mesure locale n'a ete possible dans l'environnement de preparation.
+5. **Resultats et limites (3 min).** Le jeu final contient 18 094 evenements : 12 051 consommes (66,60 %), 3 129 annules (17,29 %) et 2 914 non recuperes (16,11 %). Les evenements consommes totalisent 30 652 portions et 55 466,54 EUR de cout declare, sans extrapolation par portion.
 
 ## Questions probables
 
-- **Pourquoi conserver les identifiants d’emprunt répétés ?** Ils peuvent correspondre à
-  des états ou corrections différents. Seules les lignes strictement identiques sont
-  supprimées avant une vérification métier des ids réutilisés.
-- **Pourquoi conserver les durées absentes ?** Aucune autre colonne ne permet de les
-  reconstruire. Elles restent dans le volume d’activité, mais ne contribuent pas à la
-  durée moyenne.
-- **Comment définir un retard ?** Le statut est normalisé, puis `en_retard` est compté.
-  Le jeu ne fournit pas de date d’échéance fiable permettant de recalculer le retard.
-- **Que signifie la valeur perdue ?** C’est la valeur de l’ouvrage déclarée dans l’événement
-  au statut `perdu`, pas une perte financière auditée.
-- **Pourquoi les jointures sont gauches ?** Pour conserver les événements et mesurer les
-  clés absentes des référentiels plutôt que les masquer.
-- **Pourquoi Spark ?** Le TP mesure son coût fixe sur les données locales. L’intérêt attendu
-  est la capacité à traiter des volumes distribués, pas une vitesse supérieure garantie ici.
+- **Pourquoi les doublons exacts sont-ils retires ?** Ce sont des copies identiques ; un identifiant reutilise avec des champs divergents devra etre examine avant toute suppression.
+- **Pourquoi garder les portions atypiques ?** Le seuil de 10 est un signal pour investigation, pas une regle metier confirmee.
+- **Pourquoi garder les grammages manquants ?** Aucune autre colonne ne permet de les reconstruire.
+- **Comment le taux de consommation est-il calcule ?** Nombre de lignes au statut normalise `consomme` divise par le nombre d'evenements conserves.
+- **Pourquoi ne pas multiplier le cout par les portions ?** La granularite du cout source n'est pas documentee.
+- **Pourquoi les jointures gauches ?** Pour garder les evenements et pouvoir mesurer la couverture des referentiels.
 
-## À compléter avant le dépôt
-
-- noms des membres et date de soutenance ;
-- résultats chiffrés et graphique produits par le notebook ;
-- validation métier du traitement des identifiants d’emprunt réutilisés.
+Avant depot, renseigner les noms et la date dans le notebook et ce support.

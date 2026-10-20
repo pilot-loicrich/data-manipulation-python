@@ -3,11 +3,13 @@ services:
     image: quay.io/jupyter/pyspark-notebook:latest
     container_name: tp-pyspark
     ports:
-      - "127.0.0.1:8888:8888"
+      - "127.0.0.1:8889:8888"
       - "127.0.0.1:4040:4040"
     volumes:
       - ./:/workspace
     working_dir: /workspace
+    environment:
+      PYTHONPATH: /usr/local/spark/python:/usr/local/spark/python/lib/py4j-0.10.9.9-src.zip
     command:
       - start-notebook.py
       - --ServerApp.root_dir=/workspace
