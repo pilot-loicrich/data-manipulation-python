@@ -1,0 +1,15 @@
+services:
+  pyspark:
+    image: quay.io/jupyter/pyspark-notebook:latest
+    container_name: tp-pyspark
+    ports:
+      - "127.0.0.1:8888:8888"
+      - "127.0.0.1:4040:4040"
+    volumes:
+      - ./:/workspace
+    working_dir: /workspace
+    command:
+      - start-notebook.py
+      - --ServerApp.root_dir=/workspace
+    init: true
+    restart: unless-stopped

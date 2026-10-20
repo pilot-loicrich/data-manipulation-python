@@ -1,0 +1,12 @@
+id_site,nom_site,ville,region,capacite
+SIT01,Site Paris,Paris,Ile-de-France,677
+SIT02,Site Lyon,Lyon,Auvergne-Rhone-Alpes,368
+SIT03,Site Marseille,Marseille,PACA,439
+SIT04,Site Lille,Lille,Hauts-de-France,290
+SIT05,Site Bordeaux,Bordeaux,Nouvelle-Aquitaine,231
+SIT06,Site Nantes,Nantes,Pays de la Loire,548
+SIT07,Site Toulouse,Toulouse,Occitanie,822
+SIT08,Site Strasbourg,Strasbourg,Grand Est,607
+SIT09,Site Rennes,Rennes,Bretagne,542
+SIT10,Site Montpellier,Montpellier,Occitanie,397
+SIT99,Site technique,Orleans,Centre-Val de Loire,2500
