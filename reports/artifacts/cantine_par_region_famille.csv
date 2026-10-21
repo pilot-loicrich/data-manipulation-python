@@ -1,0 +1,51 @@
+﻿region,famille,evenements,repas_consommes,annules,non_recuperes,portions_consommes,cout_declare_consomme_eur,taux_annulation_pct,taux_non_recupere_pct
+occitanie,famille b,669,482,111,76,1233,2248.79,16.59,11.36
+occitanie,famille a,655,434,109,112,1095,1949.82,16.64,17.1
+occitanie,famille c,645,431,108,106,1044,1975.4,16.74,16.43
+occitanie,famille d,635,418,114,103,1151,1983.25,17.95,16.22
+occitanie,famille e,642,409,127,106,1065,1945.37,19.78,16.51
+paca,famille c,367,254,61,52,647,1179.14,16.62,14.17
+hauts-de-france,famille c,366,243,70,53,622,1071.8,19.13,14.48
+nouvelle-aquitaine,famille c,362,237,57,68,651,1039.35,15.75,18.78
+ile-de-france,famille e,354,236,66,52,621,1065.67,18.64,14.69
+bretagne,famille c,345,235,62,48,605,1107.9,17.97,13.91
+paca,famille d,329,234,50,45,583,1115.88,15.2,13.68
+centre-val de loire,famille c,322,234,50,38,563,1030.73,15.53,11.8
+auvergne-rhone-alpes,famille a,356,233,65,58,591,1052.55,18.26,16.29
+pays de la loire,famille d,341,232,57,52,584,1070.33,16.72,15.25
+hauts-de-france,famille d,351,232,70,49,581,1106.19,19.94,13.96
+bretagne,famille a,328,228,49,51,591,1054.56,14.94,15.55
+centre-val de loire,famille a,342,226,56,60,573,1066.18,16.37,17.54
+auvergne-rhone-alpes,famille e,337,225,53,59,578,1047.89,15.73,17.51
+auvergne-rhone-alpes,famille d,335,225,58,52,589,992.17,17.31,15.52
+ile-de-france,famille c,334,224,51,59,576,1074.99,15.27,17.66
+centre-val de loire,famille b,323,223,52,48,528,1071.36,16.1,14.86
+ile-de-france,famille d,334,222,57,55,542,992.93,17.07,16.47
+grand est,famille e,338,222,57,59,570,1001.89,16.86,17.46
+auvergne-rhone-alpes,famille b,338,221,60,57,527,1004.52,17.75,16.86
+centre-val de loire,famille e,324,221,51,52,594,1007.12,15.74,16.05
+grand est,famille c,324,219,48,57,598,1006.74,14.81,17.59
+auvergne-rhone-alpes,famille c,333,218,54,61,559,1006.26,16.22,18.32
+ile-de-france,famille a,337,218,59,60,538,980.03,17.51,17.8
+nouvelle-aquitaine,famille d,323,217,60,46,557,1020.07,18.58,14.24
+paca,famille a,322,216,58,48,558,985.44,18.01,14.91
+hauts-de-france,famille b,332,216,57,59,508,980.39,17.17,17.77
+pays de la loire,famille a,330,215,61,54,548,980.35,18.48,16.36
+nouvelle-aquitaine,famille e,303,214,50,39,540,1025.64,16.5,12.87
+bretagne,famille b,333,213,54,66,546,941.83,16.22,19.82
+centre-val de loire,famille d,325,213,63,49,536,935.86,19.38,15.08
+grand est,famille d,303,212,47,44,520,989.27,15.51,14.52
+pays de la loire,famille e,328,212,60,56,531,1000.15,18.29,17.07
+hauts-de-france,famille a,328,211,64,53,540,951.15,19.51,16.16
+pays de la loire,famille c,320,211,58,51,531,1003.47,18.12,15.94
+nouvelle-aquitaine,famille b,324,211,54,59,543,961.14,16.67,18.21
+paca,famille e,311,210,49,52,538,999.34,15.76,16.72
+nouvelle-aquitaine,famille a,301,208,51,42,528,953.35,16.94,13.95
+bretagne,famille d,328,207,61,60,517,935.05,18.6,18.29
+grand est,famille b,324,207,62,55,536,937.14,19.14,16.98
+bretagne,famille e,322,207,60,55,530,935.86,18.63,17.08
+grand est,famille a,331,206,57,68,503,963.51,17.22,20.54
+pays de la loire,famille b,334,206,69,59,522,978.62,20.66,17.66
+paca,famille b,302,204,48,50,530,915.47,15.89,16.56
+ile-de-france,famille b,301,200,52,49,508,942.68,17.28,16.28
+hauts-de-france,famille e,303,199,52,52,483,881.95,17.16,17.16
